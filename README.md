@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Smart Class Attendance System
 
 **Automated Face Recognition-Based Attendance Management**
@@ -283,6 +282,3 @@ See [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for solutions.
 ---
 
 **Made with ❤️ by Moi University Engineering Students**
-=======
-# attendance-system
->>>>>>> 763d58e44c4117cfc6970d1accef8d38e9242fbf
