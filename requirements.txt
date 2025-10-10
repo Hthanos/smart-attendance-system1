@@ -1,0 +1,37 @@
+# Core dependencies
+opencv-python==4.8.1.78
+opencv-contrib-python==4.8.1.78
+numpy==1.24.3
+Pillow==10.0.1
+
+# Database
+sqlite3  # Built-in with Python
+
+# GUI
+tkinter  # Built-in with Python (install python3-tk on Linux)
+
+# Excel/CSV export
+openpyxl==3.1.2
+pandas==2.0.3
+xlsxwriter==3.1.9
+
+# Email notifications
+python-dotenv==1.0.0
+secure-smtplib==0.1.1
+
+# SMS notifications (Africa's Talking)
+africastalking==1.2.5
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Raspberry Pi Camera (optional - only on RPi)
+# picamera==1.13
+# RPi.GPIO==0.7.1
+
+# Development/Testing
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.7.0
+flake8==6.1.0

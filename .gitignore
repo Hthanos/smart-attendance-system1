@@ -1,0 +1,189 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+share/python-wheels/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+*.cover
+*.coverage
+*.coverage.*
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.coveragerc
+htmlcov/
+.pytest_cache/
+
+# Translations
+*.mo
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+python-version
+
+# Pipenv
+Pipfile.lock
+
+# PEP 582; used by e.g. python-poetry
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+venv3/
+venv2/
+
+# virtualenv
+.venv/
+
+# Spyder project settings
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# IDEs and editors
+# VS Code
+.vscode/
+
+# JetBrains IDEs (PyCharm, IntelliJ)
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+Icon
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Logs
+*.log
+logs/
+*.out
+
+# Temporary files
+tmp/
+temp/
+
+# Certificates
+*.pem
+
+# Dataset and model artifacts
+# Ignore datasets by default — if you want to keep your dataset tracked, remove these lines
+dataset/
+data/
+datasets/
+
+# Machine learning model outputs
+models/
+checkpoints/
+weights/
+*.ckpt
+*.pt
+*.pth
+*.h5
+
+# Training artifacts
+runs/
+tensorboard/
+tb_logs/
+
+# Large media and caches
+*.tar.gz
+*.tgz
+*.zip
+*.npy
+*.npz
+
+# OpenCV and image caches
+__pycache__/
+*.cache
+
+# Custom: OS-specific swap
+.*.swp
