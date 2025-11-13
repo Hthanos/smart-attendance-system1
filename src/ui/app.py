@@ -5,6 +5,7 @@ Main Tkinter Application
 import tkinter as tk
 from tkinter import ttk, messagebox
 import logging
+import threading
 
 from config.settings import Settings
 
@@ -63,27 +64,171 @@ class AttendanceApp:
     
     def _open_registration(self):
         """Open student registration window"""
-        messagebox.showinfo("Info", "Student registration coming soon!")
+        try:
+            from src.ui.windows.student_registration import StudentRegistrationWindow
+            window = StudentRegistrationWindow(self.root)
+        except Exception as e:
+            logger.error(f"Error opening registration: {e}")
+            messagebox.showerror("Error", f"Could not open registration window:\n{str(e)}")
     
     def _open_attendance(self):
         """Open attendance tracking window"""
-        messagebox.showinfo("Info", "Attendance tracking coming soon!")
+        try:
+            from src.ui.windows.take_attendance_simple import TakeAttendanceWindow
+            window = TakeAttendanceWindow(self.root)
+        except Exception as e:
+            logger.error(f"Error opening attendance: {e}")
+            messagebox.showerror("Error", f"Could not open attendance window:\n{str(e)}")
     
     def _train_model(self):
         """Train recognition model"""
-        messagebox.showinfo("Info", "Model training coming soon!")
+        import threading
+        
+        def train():
+            try:
+                from src.services.training_service import TrainingService
+                
+                # Show progress dialog
+                progress_window = tk.Toplevel(self.root)
+                progress_window.title("Training Model")
+                progress_window.geometry("400x150")
+                progress_window.transient(self.root)
+                
+                label = tk.Label(
+                    progress_window,
+                    text="Training face recognition model...\nThis may take a few minutes.",
+                    font=("Arial", 12),
+                    pady=20
+                )
+                label.pack()
+                
+                progress = ttk.Progressbar(
+                    progress_window,
+                    mode='indeterminate',
+                    length=300
+                )
+                progress.pack(pady=20)
+                progress.start()
+                
+                # Train in background
+                trainer = TrainingService()
+                success = trainer.train_model()
+                
+                progress.stop()
+                progress_window.destroy()
+                
+                if success:
+                    messagebox.showinfo(
+                        "Success",
+                        "Model trained successfully!\n\nYou can now use face recognition for attendance."
+                    )
+                else:
+                    messagebox.showerror(
+                        "Error",
+                        "Model training failed. Check logs for details."
+                    )
+            except Exception as e:
+                logger.error(f"Training error: {e}")
+                try:
+                    progress_window.destroy()
+                except:
+                    pass
+                messagebox.showerror("Error", f"Training failed:\n{str(e)}")
+        
+        # Run training in separate thread
+        thread = threading.Thread(target=train, daemon=True)
+        thread.start()
     
     def _view_records(self):
         """View attendance records"""
-        messagebox.showinfo("Info", "View records coming soon!")
+        try:
+            from src.ui.windows.view_records import ViewRecordsWindow
+            window = ViewRecordsWindow(self.root)
+        except Exception as e:
+            logger.error(f"Error opening records: {e}")
+            messagebox.showerror("Error", f"Could not open records window:\n{str(e)}")
     
     def _export_data(self):
         """Export attendance data"""
-        messagebox.showinfo("Info", "Export data coming soon!")
+        from tkinter import filedialog
+        from datetime import datetime
+        
+        try:
+            from src.services.export_service import ExportService
+            
+            # Ask for export format
+            export_window = tk.Toplevel(self.root)
+            export_window.title("Export Data")
+            export_window.geometry("300x200")
+            export_window.transient(self.root)
+            
+            tk.Label(
+                export_window,
+                text="Select export format:",
+                font=("Arial", 12),
+                pady=20
+            ).pack()
+            
+            def export_excel():
+                filepath = filedialog.asksaveasfilename(
+                    defaultextension=".xlsx",
+                    filetypes=[("Excel files", "*.xlsx"), ("All files", "*.*")],
+                    initialfile=f"attendance_{datetime.now().strftime('%Y%m%d')}.xlsx"
+                )
+                if filepath:
+                    try:
+                        exporter = ExportService()
+                        exporter.export_all_attendance(filepath, format='xlsx')
+                        messagebox.showinfo("Success", f"Data exported to:\n{filepath}")
+                        export_window.destroy()
+                    except Exception as e:
+                        messagebox.showerror("Error", f"Export failed:\n{str(e)}")
+            
+            def export_csv():
+                filepath = filedialog.asksaveasfilename(
+                    defaultextension=".csv",
+                    filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
+                    initialfile=f"attendance_{datetime.now().strftime('%Y%m%d')}.csv"
+                )
+                if filepath:
+                    try:
+                        exporter = ExportService()
+                        exporter.export_all_attendance(filepath, format='csv')
+                        messagebox.showinfo("Success", f"Data exported to:\n{filepath}")
+                        export_window.destroy()
+                    except Exception as e:
+                        messagebox.showerror("Error", f"Export failed:\n{str(e)}")
+            
+            tk.Button(
+                export_window,
+                text="Export as Excel (.xlsx)",
+                command=export_excel,
+                width=20,
+                bg=Settings.ACCENT_COLOR,
+                fg="white"
+            ).pack(pady=10)
+            
+            tk.Button(
+                export_window,
+                text="Export as CSV",
+                command=export_csv,
+                width=20,
+                bg=Settings.ACCENT_COLOR,
+                fg="white"
+            ).pack(pady=10)
+            
+        except Exception as e:
+            logger.error(f"Error in export: {e}")
+            messagebox.showerror("Error", f"Could not export data:\n{str(e)}")
     
     def _open_settings(self):
         """Open settings window"""
-        messagebox.showinfo("Info", "Settings coming soon!")
+        try:
+            from src.ui.windows.settings import SettingsWindow
+            window = SettingsWindow(self.root)
+        except Exception as e:
+            logger.error(f"Error opening settings: {e}")
+            messagebox.showerror("Error", f"Could not open settings window:\n{str(e)}")
     
     def run(self):
         """Run the application"""

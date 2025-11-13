@@ -99,15 +99,22 @@ class StudentService:
         """Delete student (soft delete)"""
         return self.db_ops.delete_student(student_id)
     
+    def _sanitize_dir_name(self, registration_number: str) -> str:
+        """Sanitize registration number for use as directory name"""
+        # Replace / with - for filesystem compatibility
+        return registration_number.replace('/', '-')
+    
     def _create_student_directory(self, registration_number: str):
         """Create directory for student face images"""
-        student_dir = Settings.FACES_DIR / registration_number
+        dir_name = self._sanitize_dir_name(registration_number)
+        student_dir = Settings.FACES_DIR / dir_name
         student_dir.mkdir(parents=True, exist_ok=True)
         logger.debug(f"Created directory: {student_dir}")
     
     def get_student_face_images_dir(self, registration_number: str) -> Path:
         """Get path to student's face images directory"""
-        return Settings.FACES_DIR / registration_number
+        dir_name = self._sanitize_dir_name(registration_number)
+        return Settings.FACES_DIR / dir_name
     
     def count_student_images(self, registration_number: str) -> int:
         """Count number of face images for a student"""

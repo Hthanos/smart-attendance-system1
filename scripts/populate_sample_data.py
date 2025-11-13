@@ -52,9 +52,10 @@ LOCATIONS = [
 ]
 
 
-def generate_registration_number(index, year=2023):
-    """Generate realistic registration number"""
-    return f"CSC/{index:03d}/{year}"
+def generate_registration_number(index, year=2022):
+    """Generate realistic registration number - Moi University format"""
+    # Format: E028-01-XXXX/YYYY (e.g., E028-01-1532/2022)
+    return f"E028-01-{1000 + index:04d}/{year}"
 
 
 def create_sample_students(ops, count=50):

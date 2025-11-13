@@ -111,11 +111,11 @@ class SettingsWindow(tk.Toplevel):
         
         tk.Label(
             conf_frame,
-            text="Minimum Confidence Threshold:",
+            text="Recognition Confidence Threshold:",
             font=("Arial", 10)
         ).grid(row=0, column=0, sticky="w", pady=5)
         
-        self.confidence_var = tk.DoubleVar(value=Settings.RECOGNITION_CONFIDENCE_THRESHOLD)
+        self.confidence_var = tk.DoubleVar(value=Settings.RECOGNITION_THRESHOLD)
         self.confidence_scale = tk.Scale(
             conf_frame,
             from_=0,
@@ -145,11 +145,11 @@ class SettingsWindow(tk.Toplevel):
         
         tk.Label(
             train_frame,
-            text="Minimum Images per Student:",
+            text="Minimum Training Images:",
             font=("Arial", 10)
         ).grid(row=0, column=0, sticky="w", pady=5)
         
-        self.min_images_var = tk.IntVar(value=Settings.MIN_TRAINING_IMAGES)
+        self.min_images_var = tk.IntVar(value=Settings.IMAGES_PER_STUDENT)
         tk.Spinbox(
             train_frame,
             from_=10,

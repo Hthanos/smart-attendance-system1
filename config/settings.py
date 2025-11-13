@@ -31,11 +31,11 @@ class Settings:
     CAMERA_HEIGHT = int(os.getenv('CAMERA_HEIGHT', 480))
     CAMERA_FPS = int(os.getenv('CAMERA_FPS', 30))
     
-    # Face Detection Settings (Haar Cascade)
+    # Face Detection Settings (Haar Cascade) - STRICTER to avoid false positives
     HAAR_CASCADE_PATH = str(CONFIG_DIR / 'haarcascade_frontalface_default.xml')
     SCALE_FACTOR = float(os.getenv('SCALE_FACTOR', 1.1))
-    MIN_NEIGHBORS = int(os.getenv('MIN_NEIGHBORS', 5))
-    MIN_FACE_SIZE = int(os.getenv('MIN_FACE_SIZE', 30))
+    MIN_NEIGHBORS = int(os.getenv('MIN_NEIGHBORS', 8))  # Increased from 5 to 8 for stricter detection
+    MIN_FACE_SIZE = int(os.getenv('MIN_FACE_SIZE', 60))  # Increased from 30 to 60 pixels
     
     # Face Recognition Settings (LBPH)
     RECOGNITION_THRESHOLD = int(os.getenv('RECOGNITION_THRESHOLD', 50))
@@ -46,7 +46,7 @@ class Settings:
     
     # Training Settings
     IMAGES_PER_STUDENT = int(os.getenv('IMAGES_PER_STUDENT', 30))
-    IMAGE_CAPTURE_DELAY = float(os.getenv('IMAGE_CAPTURE_DELAY', 0.1))
+    IMAGE_CAPTURE_DELAY = float(os.getenv('IMAGE_CAPTURE_DELAY', 0.3))  # Increased for more variety
     TRAINING_IMAGE_SIZE = (200, 200)
     
     # Database
@@ -78,7 +78,7 @@ class Settings:
     SMS_SENDER_ID = os.getenv('SMS_SENDER_ID', 'ATTENDANCE')
     
     # Institution Details
-    INSTITUTION_NAME = os.getenv('INSTITUTION_NAME', 'Moi University')
+    INSTITUTION_NAME = os.getenv('INSTITUTION_NAME', 'Dedan Kimathi University of Technology')
     DEPARTMENT = os.getenv('DEPARTMENT', 'Electrical and Electronics Engineering')
     ACADEMIC_YEAR = os.getenv('ACADEMIC_YEAR', '2024/2025')
     SEMESTER = os.getenv('SEMESTER', '1')

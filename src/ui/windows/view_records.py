@@ -289,8 +289,8 @@ class ViewRecordsWindow(tk.Toplevel):
             records = self.attendance_service.search_records(
                 student_id=student_id,
                 course_id=course_id,
-                from_date=from_date if from_date else None,
-                to_date=to_date if to_date else None,
+                start_date=from_date if from_date else None,
+                end_date=to_date if to_date else None,
                 status=status if status != "All" else None
             )
             
@@ -299,18 +299,21 @@ class ViewRecordsWindow(tk.Toplevel):
             
             # Populate results
             for record in records:
-                timestamp = datetime.fromisoformat(record['timestamp'])
+                # Use date and time from record (not timestamp)
+                date_str = record.get('date', datetime.now().strftime("%Y-%m-%d"))
+                time_str = record.get('time', '-')
+                
                 self.results_tree.insert(
                     "",
                     tk.END,
                     values=(
-                        timestamp.strftime("%Y-%m-%d"),
-                        timestamp.strftime("%H:%M:%S"),
+                        date_str,
+                        time_str,
                         record['student_name'],
                         record['registration_number'],
                         f"{record['course_code']} - {record['course_name']}",
                         record['status'],
-                        f"{record['confidence_score']:.1f}" if record.get('confidence_score') else "N/A"
+                        f"{record.get('confidence_score', 0):.1f}" if record.get('confidence_score') else "N/A"
                     )
                 )
             

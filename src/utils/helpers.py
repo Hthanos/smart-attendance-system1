@@ -50,3 +50,21 @@ class Helpers:
     def get_timestamp(format_str: str = '%Y%m%d_%H%M%S') -> str:
         """Get current timestamp as string"""
         return datetime.now().strftime(format_str)
+    
+    @staticmethod
+    def sanitize_reg_number(reg_number: str) -> str:
+        """
+        Sanitize registration number for use as directory name.
+        Converts E028-01-1532/2022 to E028-01-1532_2022
+        """
+        return reg_number.replace('/', '_').replace('\\', '_')
+    
+    @staticmethod
+    def unsanitize_reg_number(sanitized: str) -> str:
+        """
+        Convert sanitized directory name back to registration number.
+        Converts E028-01-1532_2022 back to E028-01-1532/2022
+        """
+        # Only convert the last underscore before 4 digits
+        import re
+        return re.sub(r'_(\d{4})$', r'/\1', sanitized)

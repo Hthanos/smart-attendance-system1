@@ -26,7 +26,7 @@ class StudentRegistrationWindow(tk.Toplevel):
         super().__init__(parent)
         
         self.title("Student Registration")
-        self.geometry("900x700")
+        self.geometry("1400x850")  # Much larger to fit big camera view
         
         self.student_service = StudentService()
         self.camera = None
@@ -89,7 +89,7 @@ class StudentRegistrationWindow(tk.Toplevel):
             entry.grid(row=i, column=1, sticky="ew", pady=5)
             self.entries[key] = entry
         
-        # Right side - Camera Capture
+        # Right side - Camera Capture (MUCH LARGER)
         camera_frame = tk.LabelFrame(
             main_frame,
             text="Face Capture",
@@ -99,20 +99,27 @@ class StudentRegistrationWindow(tk.Toplevel):
         )
         camera_frame.grid(row=0, column=1, sticky="nsew")
         
-        # Camera display
+        # Camera display - FULL SIZE to fill the space
         self.camera_label = tk.Label(
             camera_frame,
-            text="Camera Preview",
+            text="Camera Preview\n\n\nClick 'Start Camera' to begin",
             bg="black",
             fg="white",
-            width=40,
-            height=20
+            font=("Arial", 14)
         )
-        self.camera_label.pack(pady=10)
+        self.camera_label.pack(fill=tk.BOTH, expand=True, pady=10, padx=10)
         
-        # Capture controls
+        # Progress label above controls
+        self.progress_label = tk.Label(
+            camera_frame,
+            text=f"Captured: 0 / {Settings.IMAGES_PER_STUDENT}",
+            font=("Arial", 11, "bold")
+        )
+        self.progress_label.pack(pady=5)
+        
+        # Capture controls at BOTTOM
         controls_frame = tk.Frame(camera_frame)
-        controls_frame.pack(pady=10)
+        controls_frame.pack(pady=15)
         
         self.start_camera_btn = tk.Button(
             controls_frame,
@@ -120,10 +127,11 @@ class StudentRegistrationWindow(tk.Toplevel):
             command=self._start_camera,
             bg=Settings.SUCCESS_COLOR,
             fg="white",
-            padx=15,
-            pady=5
+            font=("Arial", 11),
+            padx=20,
+            pady=8
         )
-        self.start_camera_btn.grid(row=0, column=0, padx=5)
+        self.start_camera_btn.grid(row=0, column=0, padx=8)
         
         self.capture_btn = tk.Button(
             controls_frame,
@@ -131,11 +139,12 @@ class StudentRegistrationWindow(tk.Toplevel):
             command=self._capture_images,
             bg=Settings.ACCENT_COLOR,
             fg="white",
-            padx=15,
-            pady=5,
+            font=("Arial", 11),
+            padx=20,
+            pady=8,
             state=tk.DISABLED
         )
-        self.capture_btn.grid(row=0, column=1, padx=5)
+        self.capture_btn.grid(row=0, column=1, padx=8)
         
         self.stop_camera_btn = tk.Button(
             controls_frame,
@@ -143,19 +152,12 @@ class StudentRegistrationWindow(tk.Toplevel):
             command=self._stop_camera,
             bg=Settings.ERROR_COLOR,
             fg="white",
-            padx=15,
-            pady=5,
+            font=("Arial", 11),
+            padx=20,
+            pady=8,
             state=tk.DISABLED
         )
-        self.stop_camera_btn.grid(row=0, column=2, padx=5)
-        
-        # Progress
-        self.progress_label = tk.Label(
-            camera_frame,
-            text=f"Captured: 0 / {Settings.IMAGES_PER_STUDENT}",
-            font=("Arial", 10)
-        )
-        self.progress_label.pack(pady=5)
+        self.stop_camera_btn.grid(row=0, column=2, padx=8)
         
         # Configure grid weights
         main_frame.grid_rowconfigure(0, weight=1)
@@ -219,10 +221,11 @@ class StudentRegistrationWindow(tk.Toplevel):
                 # Draw rectangles
                 display_frame = self.face_detector.draw_faces(frame, faces, label="Face")
                 
-                # Convert to PIL Image
+                # Convert to PIL Image - MAXIMUM size for the space
                 frame_rgb = cv2.cvtColor(display_frame, cv2.COLOR_BGR2RGB)
                 img = Image.fromarray(frame_rgb)
-                img = img.resize((400, 300), Image.Resampling.LANCZOS)
+                # Make it even bigger - 800x600 to fill the right section
+                img = img.resize((800, 600), Image.Resampling.LANCZOS)
                 photo = ImageTk.PhotoImage(image=img)
                 
                 self.camera_label.config(image=photo)
@@ -312,6 +315,16 @@ class StudentRegistrationWindow(tk.Toplevel):
             return
         
         try:
+            # Parse year of study safely
+            year_str = self.entries['year'].get().strip()
+            year_of_study = None
+            if year_str:
+                try:
+                    year_of_study = int(year_str)
+                except ValueError:
+                    messagebox.showwarning("Warning", "Year of study must be a number")
+                    return
+            
             # Register student
             student_id = self.student_service.register_student(
                 registration_number=reg_number,
@@ -319,7 +332,7 @@ class StudentRegistrationWindow(tk.Toplevel):
                 email=self.entries['email'].get().strip() or None,
                 phone=self.entries['phone'].get().strip() or None,
                 department=self.entries['department'].get().strip() or None,
-                year_of_study=int(self.entries['year'].get()) if self.entries['year'].get() else None,
+                year_of_study=year_of_study,
                 program=self.entries['program'].get().strip() or None
             )
             
@@ -334,12 +347,15 @@ class StudentRegistrationWindow(tk.Toplevel):
                 img_path = face_dir / f"{i+1:03d}.jpg"
                 cv2.imwrite(str(img_path), img)
             
+            logger.info(f"Student registered: {reg_number}")
+            
+            # Stop camera before showing dialogs to prevent widget access errors
+            self._stop_camera()
+            
             messagebox.showinfo(
                 "Success",
                 f"Student registered successfully!\nID: {student_id}\nImages saved: {len(self.captured_images)}"
             )
-            
-            logger.info(f"Student registered: {reg_number}")
             
             # Ask if want to register another
             if messagebox.askyesno("Continue?", "Register another student?"):

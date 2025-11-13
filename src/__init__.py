@@ -1,8 +1,5 @@
 """
-Database package for Smart Class Attendance System
+Smart Class Attendance System - Main Package
 """
 
-from .db_manager import DatabaseManager
-from .operations import DatabaseOperations
-
-__all__ = ['DatabaseManager', 'DatabaseOperations']
+__version__ = '1.0.0'
