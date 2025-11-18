@@ -2,8 +2,8 @@
 
 ## PROJECT PROPOSAL
 
-**Institution:** Moi University  
-**Department:** Computer Science  
+**Institution:** Dedan Kimathi University  of Technology
+**Department:** 
 **Academic Year:** 2024/2025  
 **Project Type:** Bachelor's Degree Final Year Project  
 

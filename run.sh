@@ -24,6 +24,9 @@ fi
 # Activate virtual environment
 source venv/bin/activate
 
+# Set library path for OpenCV
+export LD_LIBRARY_PATH=$HOME/.local/lib/python3.13/site-packages/opencv_contrib_python.libs:$LD_LIBRARY_PATH
+
 # Check if database exists
 if [ ! -f "data/database/attendance.db" ]; then
     echo "Initializing database..."
