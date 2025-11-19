@@ -423,4 +423,4 @@ The proposed system balances technical sophistication with practical usability, 
 **Prepared by:** [Student Name]  
 **Supervisor:** [Supervisor Name]  
 **Date:** January 2025  
-**Moi University - School of Computing and Informatics**
+**Dedan Kimathi University of Technology - School of Computing and Informatics**

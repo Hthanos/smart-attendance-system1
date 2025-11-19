@@ -38,10 +38,10 @@ sudo apt-get install python3-picamera
 2. Install Python (check "Add Python to PATH")
 3. Open Command Prompt as Administrator
 
-### 3. Clone Repository
+### 3. open project folder
 
 ```bash
-git clone https://github.com/RamspheldOnyangoOchieng/attendance-system.git
+
 cd attendance-system
 ```
 
@@ -83,10 +83,10 @@ python -m src.database.db_manager
 
 ```bash
 # Test camera
-python src/core/camera.py
+python -m src.core.camera
 
 # Test face detection
-python src/core/face_detector.py
+python -m src.core.face_detector
 ```
 
 ### 9. Run Application
@@ -139,4 +139,3 @@ sudo chmod 666 /dev/video0
 3. Train the model
 4. Start taking attendance
 
-See [USER_MANUAL.md](03_USER_MANUAL.md) for detailed usage instructions.

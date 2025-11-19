@@ -1,8 +1,8 @@
 # Registration Number Format
 
-## Moi University Format
+## Dedan Kimathi University of Technology
 
-Registration numbers in this system follow the **Moi University** standard format:
+Registration numbers in this system follow the **Dedan Kimathi University of Technology** standard format:
 
 ```
 E028-01-XXXX/YYYY

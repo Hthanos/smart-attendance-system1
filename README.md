@@ -13,7 +13,7 @@ A comprehensive attendance tracking system using facial recognition technology, 
 - **Gabriel Okal** – E028-01-1307/2020
 
 **Supervisor:** Dr. Tafara  
-**Institution:** Moi University - Department of Electrical and Electronics Engineering
+**Institution:**Dedan Kimathi University of Technology - Department of Electrical and Electronics Engineering
 
 ---
 
@@ -63,10 +63,10 @@ sudo apt-get install python3-opencv python3-tk
 
 ## 🚀 Installation
 
-### 1. Clone the Repository
+### 1. open the project folder
 
 ```bash
-git clone https://github.com/RamspheldOnyangoOchieng/attendance-system.git
+
 cd attendance-system
 ```
 
@@ -226,15 +226,6 @@ python src/core/face_recognizer.py  # Test recognition
 - **Training Time:** ~5 seconds for 10 students (300 images)
 - **Database:** Handles 1000+ students efficiently
 
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ---
 
@@ -247,17 +238,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🙏 Acknowledgments
 
 - OpenCV community for computer vision libraries
-- Moi University for project support
+- Dedan kimathi University for project support
 - Dr. Tafara for supervision and guidance
-
----
-
-## 📧 Contact
-
-For questions or support, contact:
-
-- **Email:** attendance@moiuniversity.edu
-- **Repository:** [GitHub](https://github.com/RamspheldOnyangoOchieng/attendance-system)
 
 ---
 
@@ -267,7 +249,7 @@ For questions or support, contact:
 - Multiple faces in frame may slow down processing
 - Raspberry Pi Camera requires specific setup
 
-See [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for solutions.
+
 
 ---
 
@@ -281,4 +263,4 @@ See [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for solutions.
 
 ---
 
-**Made with ❤️ by Moi University Engineering Students**
+**Made with ❤️ by Dedan Kimathi University Engineering Students**
